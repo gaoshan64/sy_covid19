@@ -1,0 +1,20 @@
+@page {
+  size: A4;
+
+}
+
+.table.table-bordered > tr >td {
+height: 100px!important
+max-height: 100px!important
+}
+@page:right{
+ @bottom-right {
+  content: counter(page);
+   }
+   }
+@page:left{
+@bottom-left {
+content: counter(page);
+ }
+ }
+

@@ -1,0 +1,297 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">  
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">  
+<META HTTP-EQUIV="expires" CONTENT="0">  
+<meta name="SiteName" content="">
+<meta name="SiteDomain" content="shenyang.gov.cn">
+<meta name="SiteIDCode" content="2101000053">
+<meta name="ColumnName" content="通知公告">
+ <meta name="ColumnDescription" content="通知公告">
+ <meta name="ColumnKeywords" content="通知公告">
+ <meta name="ColumnType" content="通知公告">
+ <meta name="ArticleTitle" content="关于开展区域核酸检测采样的通告（第42号）">
+<meta name="PubDate" content="2022年04月01日">
+<meta name="ContentSource" content="沈阳市新冠肺炎疫情防控指挥部">
+<title>沈阳市人民政府</title>
+<link href="../../../../material/gongyong/syszf/css/basefy.css" rel="stylesheet" type="text/css" />
+<link href="../../../../material/gongyong/syszf/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../../../material/gongyong/syszf/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../../../../material/gongyong/syszf/js/jquery.qrcode.js"></script>
+<script type="text/javascript">
+$(function(){
+    //分享
+    var title = "【" + $.trim(document.title) + "】";
+    var description = $.trim($('meta[name="description"]').attr('content'));
+    var portalUrl = window.location.href;
+    //生成二维码
+    function generateQRCode(rendermethod, picwidth, picheight, url) {
+        $(".qrcode").qrcode({
+            render: rendermethod, // 渲染方式有table方式（IE兼容）和canvas方式
+            width: picwidth, //宽度
+            height: picheight, //高度
+            text: utf16to8(portalUrl), //内容
+            typeNumber: -1, //计算模式
+            correctLevel: 2, //二维码纠错级别
+            background: "#ffffff", //背景颜色
+            foreground: "#000000" //二维码颜色
+
+        });
+    }
+    canvas_table = !!document.createElement('canvas').getContext ? 'canvas' : 'table';
+
+    function init() {
+        generateQRCode(canvas_table, 100, 100, window.location.href);
+    }
+    //中文编码格式转换
+    function utf16to8(str) {
+        var out, i, len, c;
+        out = "";
+        len = str.length;
+        for(i = 0; i < len; i++) {
+            c = str.charCodeAt(i);
+            if((c >= 0x0001) && (c <= 0x007F)) {
+                out += str.charAt(i);
+            } else if(c > 0x07FF) {
+                out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+            } else {
+                out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+            }
+        }
+        return out;
+    }
+    init();
+
+    $(".share-wechat").on("mouseover", function() {
+        $(".bg-code,.qrcode").toggle();
+    });
+    //清空二维码
+    $(".close-btn").on("mouseover", function(event) {
+        $(".bg-code,.qrcode,.close-btn").hide();
+        event.stopPropagation();
+    });
+
+    function showToQzone() {
+         var _desc = description;
+         var _title = title;
+         var _url = portalUrl;
+         var _shareUrl = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?';
+         _shareUrl += 'url=' + encodeURIComponent(_url);   //参数url设置分享的内容链接|默认当前页location
+         _shareUrl += '&title=' + encodeURIComponent(_title);    //参数title设置分享标题，可选参数
+         window.open(_shareUrl,'','width=700,height=680,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=1,location=yes,status=0'); 
+    }
+
+    function showToSina(title, portalUrl, desc) {
+        var _desc = desc;
+        var _t = title + " " + _desc;
+        var _url = portalUrl;
+        var _appkey = "2806082167"; //你从微薄获得的appkey
+        var _site = ''; //你的网站地址
+        var _ralateUid = "";
+        var _u = 'http://service.weibo.com/share/share.php?url=' + _url + '&appkey=' + _appkey + '&title=' + _t + '&ralateUid=' + _ralateUid + '&searchPic=false';
+        window.open(_u, '', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no');
+    }
+    
+    $('.share-qqzone').on('click', function() {
+        showToQzone(title, portalUrl, description);
+    });
+    $('.share-weibo').on('click', function() {
+        showToSina(title, portalUrl, description);
+    });
+});
+</script>
+
+</head>
+
+<body>
+<script id="VABT" type="text/javascript" src="http://124.95.133.85:8080/vabtwx/VABT.js" charset="UTF-8"></script>
+
+<div class="xsy_top1">
+	<div class="xsy_main">
+	<div class="sy-head-feature">    
+        <div class="sy-featureleft">      <ul>        <li><a href="http://www.gov.cn/" target="_blank">中国政府网</a><span></span></li>        <li><a href="http://www.ln.gov.cn/" target="_blank">辽宁省政府门户网站</a></li>      </ul>    
+        </div> 
+       <div class="sy-featureright">      <ul>        <li><a href="javascript:zh_tran(&#39;s&#39;);" class="zh_click" id="zh_click_s" target="_self">简体版</a><span></span></li>        <li><a href="javascript:zh_tran(&#39;t&#39;);" class="zh_click" id="zh_click_t" target="_self">繁体版</a><span></span></li>        <li><a href="../../../../english/" target="_blank">English</a><span></span></li>      <li><a href="../../../../zx/zddt/" target="_blank">站点地图</a><span></span></li>        <li><a href="javascript:void(0);" onclick="VABT.UI.O()" title="无障碍辅助浏览工具条">无障碍辅助浏览工具条</a></li>      </ul>    </div>  </div>
+    <!--搜索-->
+<script language="javascript">
+	//页面使用UTF-8编码时form表单方法
+    function utf8Test(){
+        var temp = form1.qt.value;
+        if(temp==null || temp==""){
+            alert("请输入提交条件");
+			return false;
+        } else{
+            return true;
+        }
+    }
+	
+
+</script>
+
+    <div class="xsy_search1">
+<form action="http://www.shenyang.gov.cn/so/s" method="get" name="form1" onsubmit="return utf8Test()" target="_blank" id="form1">  
+    	<input type="text" class="xsy_inp3" name="qt" id="qt" /><input type="submit" class="xsy_inp4" value="" />
+</form>    
+    </div>
+    </div>
+</div>
+<div class="xsy_nav">
+	<div class="xsy_main">
+    	<ul>      
+        <li><a href="/" target="_blank">首页</a><span></span></li>      
+        <li><a href="../../../../dwgk/" target="_blank">党务公开</a><span></span></li>      
+        <li><a href="../../../../zwgk/" target="_blank">政务公开</a><span></span></li>      
+        <li><a href="http://zwfw.shenyang.gov.cn/syzwdt/epointzwmhwz/pages/default/index" target="_blank">办事服务</a><span></span></li>      
+        <li><a href="../../../../zmhd/" target="_blank">政民互动</a><span></span></li> 
+       <li><a href="http://data.shenyang.gov.cn/" target="_blank">数据开放</a><span></span></li>     
+        <li><a href="../../../../wssy/" target="_blank">走进沈阳</a><span></span></li>      
+        <li style="border-right:1px solid #fff;"><a href="../../../../zwxmtjz/" target="_blank">新媒体矩阵</a></li>      
+        </ul>
+    </div>
+</div>
+<div class="xsy_main" >
+	<div class="xsy_now"><a href="../../../../" title="首页" class="CurrChnlCls">首页</a>&nbsp;->&nbsp;<a href="../../../" title="专题" class="CurrChnlCls">专题</a>&nbsp;->&nbsp;<a href="../../" title="防控新型冠状病毒感染的肺炎疫情" class="CurrChnlCls">防控新型冠状病毒感染的肺炎疫情</a>&nbsp;->&nbsp;<a href="../" title="通知公告" class="CurrChnlCls">通知公告</a></div>
+    
+    <div class="xsy_rcontent2">
+    	<div class="dlist_subtitle"></div>
+    	<div class="dlist_title">关于开展区域核酸检测采样的通告（第42号）</div>
+        <div class="dlist_subtitle"></div>
+        <div class="comfrom">
+            <div class="lysj"><span>时间：2022年04月01日</span><span>来源：沈阳市新冠肺炎疫情防控指挥部</span></div>
+            <div class="m-share">
+                <div class="share" id="share">
+                    <span>分享：</span>
+                    <a class="share-wechat" href="javascript:;"><i></i><div class="bg-code"></div><div class="qrcode"><canvas width="100" height="100"></canvas></div><span class="close-btn">X</span></a>
+                    <a class="share-weibo"><i></i></a>
+                    <a class="share-qqzone"><i></i></a>
+                </div>
+            </div>
+            <div class="zf-centertime">
+            
+            <span>[字体：
+            <a onclick="$('.content, .view, .view span').css('font-size','20px')">大</a>
+            <a onclick="$('.content, .view, .view span').css('font-size','16px')">中</a>
+            <a onclick="$('.content, .view, .view span').css('font-size','14px')">小</a>]
+            </span>
+            <span>
+            <a href="javascript:window.print();" style="background: url(images/ico.png) no-repeat 0px 5px;
+            padding-left: 22px;">打印</a>
+            </span>
+            </div>
+        </div>
+        <div  class="dlist_con content"><div class="view TRS_UEDITOR trs_paper_default"><p>　　市疫情防控指挥部决定，4月2日8时起，在和平区、沈河区、铁西区、皇姑区、大东区、浑南区、于洪区、苏家屯区、辽中区、新民市开展核酸检测采样工作。本次采样以居民小区、楼宇、自然村组等为最小单元，切实做到全覆盖、无遗漏。<br/>　　凡未按时参加采样的人员，手机赋“黄码”，并按照相关规定承担法律责任。<br/>　　感谢广大市民支持理解配合。</p><p style="text-align: right;">　　沈阳市新冠肺炎疫情防控指挥部<br/>　　2022年4月1日</p></div></div>
+<div class="clear"></div>
+        
+    </div>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="sy-footer">    
+	<div class="sy-footer-first">      
+    	<ul>        
+        	<li><a href="../../../../zx/gywm/" target="_blank">关于我们</a><span></span></li>        
+            <li><a href="../../../../zx/wzsm/" target="_blank">网站声明</a><span></span></li>       
+            <li><a href="../../../../zx/zddt/" target="_blank">站点地图</a></li>     
+        </ul>    
+     </div> 
+    <div class="sy-footer-second"> 
+  
+    	<div class="sy-footer-secondleft">           <script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='http://dcs.conac.cn/js/08/137/0000/41461383/CA081370000414613830001.js' type='text/javascript'%3E%3C/script%3E"));</script><script src="../../../../images/CA081370000414613830001.js" type="text/javascript"></script>       </div>  
+            
+        <div class="sy-footer-secondmid">        <div class="sy-footer-secondmidt">主办单位：中共沈阳市委　沈阳市人民政府　　承办单位：中共沈阳市委办公室　沈阳市人民政府办公室  &nbsp;&nbsp;&nbsp;网站维护电话：024-22734463</div>        <div class="sy-footer-secondmidb">网站标识码2101000053　　<a href="https://beian.miit.gov.cn/" target="_blank">辽ICP备11004362号</a> <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=21011202000247" target="_blank"><img src="../../../../images/batb.png" />辽公网安备 21011202000247号</a></div>        <div class="sy-footer-fouth">技术支持单位：沈阳市信息中心（沈阳市信用中心）  建议使用1366*768分辨率 IE8.0以上版本浏览器</div>      
+        </div>      
+<div class="sy-footer-secondright">         
+
+<script id="_jiucuo_" type="text/javascript" src="../../../../material/gongyong/syszf/js/jiucuo.js" charset="UTF-8"></script>
+
+<span id="_span_jiucuo"><img onclick="Link('2101000053')" style="margin:0;border:0;cursor: pointer;" src="https://zfwzgl.www.gov.cn/exposure/images/jiucuo.png?v=2101000053" /></span>       <span id="_span_jiucuo"></span>       </div>
+
+    </div>   
+</div>
+<!--简体繁体转换Js-->
+<style>
+.sy-footer-first {
+    height: 22px;
+    line-height: 22px;
+    width: 228px;
+    margin: 0px auto 12px;
+}
+.sy-footer-second {
+    width: 1086px;
+    margin: 0 auto;
+}
+.fourth-row-selectlist {
+    margin: 0 auto;
+    width: 1093px;
+    padding: 20px 0 0;
+}
+</style>
+<script type="text/javascript" src="../../../../material/gongyong/syszf/js/chinese.js"></script>
+
+
+
+<script type="text/javascript">
+    var videoList = document.getElementsByTagName('iframe'),
+        removeIndex = [];
+    for (var i = 0, length = videoList.length; i < length; i++) {
+        var video = videoList[i],
+            src = video.getAttribute('src');
+            durl = video.getAttribute('durl');
+        if (durl) {
+            var videoEle = document.createElement('video');
+            videoEle.setAttribute('src', durl);
+            videoEle.setAttribute('controls', true);
+            videoEle.setAttribute('appendix', true);
+            videoEle.setAttribute('preload', true);
+            videoEle.setAttribute('name', video.getAttribute('name'));
+            videoEle.setAttribute('class', video.getAttribute('class'));
+           
+            videoEle.setAttribute('autoplay', src.match(/&autoPlay=\S*/)[0].split('=')[1]);
+ 
+            video.parentElement.insertBefore(videoEle, video);
+            removeIndex.push(i);
+        }
+    }
+ 
+    if (removeIndex.length > 0) {
+        for (var i = 0, length = removeIndex.length; i < length; i++) {
+            var videoIframe = videoList[removeIndex[i]];
+            videoIframe.parentElement.removeChild(videoIframe);
+
+        }
+    }
+</script>
+
+
+<script>
+$(document).ready(function(){
+  
+  $(".dlist_con video").css({
+  "width":"640px",
+  "height":"515px"
+  });
+  
+ })
+</script>
+<script id="_trs_ta_js" src="//ta.trs.cn/c/js/ta.js?mpid=5451" async="async" defer="defer"></script> 
+<!--<style>
+@media screen and (max-width: 768px){
+
+body {min-width: 100%;}
+.dlist_con{width: 96%;margin: 0 2%}
+.xsy_main{width: 100%;}
+.m-share{display:none;}
+.zf-centertime{display:none;}
+.comfrom{width: 96%;margin: 2%;}
+.dlist_con{width: 96%;margin:0  2%;}
+
+}
+</style>-->
+</body>
+</html>
