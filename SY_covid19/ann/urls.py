@@ -12,8 +12,10 @@ from . import views
 
 urlpatterns = [
     path('', views.hello_world,name='index'),
+    path('notice',views.notice,name='notice'),
+    path('new_patient',views.new_patient,name='new_patient'),
+    path('others',views.others,name='others'),
+
     path('first_add',views.first_add,name='first_add'),
     path('get_new', views.get_new, name='first_add'),
-
-
 ]

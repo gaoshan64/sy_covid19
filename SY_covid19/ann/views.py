@@ -8,9 +8,69 @@ from .spyder import Spider
 from .models import Article,Patient
 from  .form import ArticleForm
 from .extract import extract_data
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+
 
 def hello_world(request):
-    return render(request,'./base.html')
+    articles = Article.objects.all()
+    paginator = Paginator(articles, 20)
+    page = request.GET.get('page')
+    try:
+        current_page = paginator.page(page)
+        articles = current_page.object_list
+    except PageNotAnInteger:
+        current_page = paginator.page(1)
+        articles = current_page.object_list
+    except EmptyPage:
+        current_page = paginator.page(paginator.num_pages)
+        articles = current_page.object_list
+    return render(request,'./base.html',{"articles":articles,"page":current_page,})
+
+
+def notice(request):
+    articles = Article.objects.filter(type='ann')
+    paginator = Paginator(articles, 20)
+    page = request.GET.get('page')
+    try:
+        current_page = paginator.page(page)
+        articles = current_page.object_list
+    except PageNotAnInteger:
+        current_page = paginator.page(1)
+        articles = current_page.object_list
+    except EmptyPage:
+        current_page = paginator.page(paginator.num_pages)
+        articles = current_page.object_list
+    return render(request,'./base.html',{"articles":articles,"page":current_page,})
+
+def new_patient(request):
+    articles = Article.objects.filter(type='new_p')
+    paginator = Paginator(articles, 20)
+    page = request.GET.get('page')
+    try:
+        current_page = paginator.page(page)
+        articles = current_page.object_list
+    except PageNotAnInteger:
+        current_page = paginator.page(1)
+        articles = current_page.object_list
+    except EmptyPage:
+        current_page = paginator.page(paginator.num_pages)
+        articles = current_page.object_list
+    return render(request,'./base.html',{"articles":articles,"page":current_page,})
+
+def others(request):
+    articles = Article.objects.filter(type='alert')
+    paginator = Paginator(articles, 20)
+    page = request.GET.get('page')
+    try:
+        current_page = paginator.page(page)
+        articles = current_page.object_list
+    except PageNotAnInteger:
+        current_page = paginator.page(1)
+        articles = current_page.object_list
+    except EmptyPage:
+        current_page = paginator.page(paginator.num_pages)
+        articles = current_page.object_list
+    return render(request, './base.html', {"articles": articles, "page": current_page, })
 
 def bath_add(infor_list_t_l_d):
     spr = Spider()
