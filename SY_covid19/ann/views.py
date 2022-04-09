@@ -158,8 +158,13 @@ def bath_add(infor_list_t_l_d):
             continue
 
 def first_add(request):
+    '''
+
+    :param request:
+    :return:
+    '''
     spr=Spider()
-    infor_list_t_l_d=spr.more_list_page_data(3)
+    infor_list_t_l_d=spr.more_list_page_data(4)
     #print(infor_list_t_l_d)
 
     bath_add(infor_list_t_l_d)
@@ -250,7 +255,7 @@ def get_d_c_bar(range):
     community_d_list2=[[x[0],dis_list.index(x[1]),x[2] ]for x in community_d_list]
 
     def getlist(a,b):
-        list=[0,0,0,0,0,0,0,0,0]
+        list=[0]*len(dis_list)
         list[a]=b
         return list
 

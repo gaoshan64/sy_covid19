@@ -50,8 +50,8 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(Patient)
 class PatinetAdmin(admin.ModelAdmin):
-    list_display = ['patient_id','address_now','district',linkify('article_related'),'definite_date','pub_date']
-    list_filter = ['address_now','district','definite_date']
+    list_display = ['patient_id','address_now','district','community',linkify('article_related'),'definite_date','pub_date']
+    list_filter = ['address_now','district','community','definite_date']
     ordering = ['-id']
 
     def patient_id(self,Patient):
