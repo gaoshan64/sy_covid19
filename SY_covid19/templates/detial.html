@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{%block main%}
+<h3>{{article.title}}</h3>
+<hr>
+<div class="row">
+    <div class="col-12 col-lg-6">
+        {{article.content|linebreaks}}
+    </div>
+
+</div>
+
+{%endblock%}

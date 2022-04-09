@@ -9,7 +9,7 @@
 """
 import jieba
 import re
-
+import os
 
 str1='''
 3月31日，沈阳市发现新型冠状病毒核酸检测结果异常人员，其行程轨迹如下：
@@ -104,23 +104,48 @@ str3='''
 #正则提取patten
 ## 提取现住址* 地址信息
 
+def p_definite_date(str):
+    '''提取确诊病例日期'''
+    result_list=re.findall(r'\d{4}年\d{1,2}月\d{1,2}日',str)
+    if len(result_list) != 0:
+        result=result_list[0]
+        year=re.findall(r'\d{4}年',result)[0][:-1]
+        month=re.findall(r'\d{1,2}月',result)[0][:-1]
+        day=re.findall(r'\d{1,2}日',result)[0][:-1]
+        return '{}-{}-{}'.format(year,month,day)
+    else:
+        print('未找到日期信息')
+        return None
+
+
+
+
 
 def extract_data(str):
     result= re.findall(r'现住址[^为][(\u4e00-\u9fa5)0-9]+',str)
     result=[p[4:] for p in result ]
+    #print(result)
     return result
+
+def d_c_get(str):
+    print(os.getcwd())
+
+    jieba.load_userdict('dict.txt')
+    if str=='无':
+        str='其他客车司机'
+
+    jieba_list=jieba.lcut(str)
+    if '沈阳市' in jieba_list:
+        jieba_list.remove('沈阳市')
+    d=jieba_list[0]
+    c=''.join(jieba_list[1:])
+    return d,c
+
+
 
 
 
 
 if __name__ == '__main__':
-    extract_data('''2022年2月10日，我市新增1例新型冠状病毒肺炎确诊病例，现已转入定点医疗机构隔离治疗，病情稳定。通过询问患者本人及家属，并结合相关部门大数据信息比对，形成确诊病例行程轨迹如下：
-某某，现住址：沈阳市浑南区绿色家园小区。
-2月7日从绥中县乘私家车返沈，回家后未外出。
-2月8日作为重点管控地区返沈人员接受集中隔离观察。
-温馨提示：现提醒在上述过程中与患者有过接触的市民，按传染病防治法有关规定，需采取如下措施：
-1.立即向所在社区或村委会登记备案，社区或村委会要第一时间向所在地新冠肺炎疫情防控指挥部报告，并持续跟踪反馈情况，实行每日零报告制度；
-2.要减少与他人接触，避免参加聚集性活动，14天内居家暂不要外出，尽快开展一次核酸检测；
-3.在此期间若出现发热、乏力、咳嗽等呼吸道症状时，请第一时间与辖区疾病预防控制中心联系或佩戴口罩，前往当地卫生健康行政部门指定的医疗机构发热门诊规范就诊，就医途中，请勿乘坐公共交通工具，并全程佩戴口罩。
-沈阳市新冠肺炎疫情防控指挥部疫情防控综合组
-2022年2月10日''')
+    s=input('str input:')
+    print(p_definite_date(s))

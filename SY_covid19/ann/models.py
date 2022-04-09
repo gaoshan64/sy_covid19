@@ -39,11 +39,51 @@ class Article(models.Model):
 
 
 class Patient(models.Model):
+    district_c=(('和平区','和平区'),
+                ('沈河区','沈河区'),
+                ('大东区','大东区'),
+                ('皇姑区','皇姑区'),
+                ('铁西区','铁西区'),
+                ('苏家屯区','苏家屯区'),
+                ('浑南区','浑南区'),
+                ('沈北新区','沈北新区'),
+                ('于洪区','于洪区'),
+                ('辽中区','辽中区'),
+                ('康平县','康平县'),
+                ('法库县','法库县'),
+                ('新民市','新民市')
+                )
     id = models.BigAutoField(primary_key=True)
     article_related=models.ForeignKey(verbose_name='相关报告', to='Article',on_delete=models.CASCADE,related_name='about_patient')
     address_now=models.CharField('现在住址',max_length=30,blank=True)
+    district=models.CharField('区',max_length=20,choices=district_c,blank=True)
+    community=models.CharField('小区',max_length=50,blank=True)
+    definite_date= models.DateField('确诊日期', blank=True  )
     add_date = models.DateTimeField('添加日期', auto_now_add=True, )
     edit_date = models.DateTimeField('修改日期', auto_now=True, )
 
     def __str__(self):
         return '病例'+str(self.id)
+
+class Community(models.Model):
+    district_c = (('和平区', '和平区'),
+                  ('沈河区', '沈河区'),
+                  ('大东区', '大东区'),
+                  ('皇姑区', '皇姑区'),
+                  ('铁西区', '铁西区'),
+                  ('苏家屯区', '苏家屯区'),
+                  ('浑南区', '浑南区'),
+                  ('沈北新区', '沈北新区'),
+                  ('于洪区', '于洪区'),
+                  ('辽中区', '辽中区'),
+                  ('康平县', '康平县'),
+                  ('法库县', '法库县'),
+                  ('新民市', '新民市')
+                  )
+    name=models.CharField('小区名',max_length=50,db_index=True)
+    district=models.CharField('区',max_length=20,choices=district_c)
+    patient_number=models.IntegerField('病人数量',default=0)
+    lng=models.CharField('经度',max_length=30)
+    lat=models.CharField('纬度',max_length=30)
+    add_date = models.DateTimeField('添加日期', auto_now_add=True, )
+    edit_date = models.DateTimeField('修改日期', auto_now=True, )
