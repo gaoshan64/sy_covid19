@@ -19,5 +19,5 @@ urlpatterns = [
     path('first_add',views.first_add,name='first_add'),
     path('get_new', views.get_new, name='first_add'),
     path('chart_test/<str:range>',views.chart_test,name='chart_test'),
-    path('chart_test2',views.chart_test2,name='chart_test2')
+    #path('chart_test2',views.chart_test2,name='chart_test2')
 ]
