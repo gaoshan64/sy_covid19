@@ -1,9 +1,6 @@
 # Create your views here.
 
-from jinja2 import Environment,FileSystemLoader
-from pyecharts.globals import CurrentConfig
 from django.shortcuts import HttpResponse,render,get_object_or_404
-import time
 from .baidu_query import get_location
 import json
 from .spyder import Spider
@@ -20,6 +17,11 @@ from .get_baidu_data import get_baidu_v_data
 
 
 def hello_world(request):
+    '''
+    首页
+    :param request:
+    :return:
+    '''
     articles = Article.objects.all()
     paginator = Paginator(articles, 20)
     page = request.GET.get('page')
@@ -37,6 +39,11 @@ def hello_world(request):
 
 
 def notice(request):
+    '''
+
+    :param request:
+    :return:
+    '''
     articles = Article.objects.filter(type='ann')
     title='通知通告'
     paginator = Paginator(articles, 20)
@@ -52,7 +59,14 @@ def notice(request):
         articles = current_page.object_list
     return render(request,'./base.html',{"articles":articles,"page":current_page,"title":title})
 
+
+
 def new_patient(request):
+    '''
+
+    :param request:
+    :return:
+    '''
     articles = Article.objects.filter(type='new_p')
     paginator = Paginator(articles, 20)
     page = request.GET.get('page')
@@ -70,9 +84,13 @@ def new_patient(request):
 
 
 
-
-
 def others(request):
+    '''
+
+    :param request:
+    :return:
+    '''
+
     articles = Article.objects.filter(type='alert')
     title='其他'
     paginator = Paginator(articles, 20)
@@ -88,13 +106,26 @@ def others(request):
         articles = current_page.object_list
     return render(request, './base.html', {"articles": articles, "page": current_page,"title":title })
 
+
+
 def article_detial(request,article_id):
+    '''
+
+    :param request:
+    :param article_id:
+    :return:
+    '''
 
     article=get_object_or_404(Article,id=article_id)
     return render(request,'./detial.html',{"article":article})
 
 
 def bath_add(infor_list_t_l_d):
+    '''
+    批量添加 文章
+    :param infor_list_t_l_d:
+    :return:
+    '''
     spr = Spider()
     for infor in  infor_list_t_l_d:
         try:
@@ -128,7 +159,9 @@ def bath_add(infor_list_t_l_d):
 
 def first_add(request):
     spr=Spider()
-    infor_list_t_l_d=spr.more_list_page_data(2)
+    infor_list_t_l_d=spr.more_list_page_data(3)
+    #print(infor_list_t_l_d)
+
     bath_add(infor_list_t_l_d)
     return HttpResponse('finish')
 
