@@ -37,7 +37,7 @@ class Spider():
         if page == 1:
             page_str = ''
         else:
-            page_str = 'index_{}.html'.format(str(page))
+            page_str = 'index_{}.html'.format(str(page-1))
         URL = self.URL1 + page_str
 
         response = requests.get(URL, headers=self.headers, verify=False)

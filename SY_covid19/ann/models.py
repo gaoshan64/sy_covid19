@@ -57,10 +57,13 @@ class Patient(models.Model):
     article_related=models.ForeignKey(verbose_name='相关报告', to='Article',on_delete=models.CASCADE,related_name='about_patient')
     address_now=models.CharField('现在住址',max_length=30,blank=True)
     district=models.CharField('区',max_length=20,choices=district_c,blank=True)
-    community=models.CharField('小区',max_length=50,blank=True)
-    definite_date= models.DateField('确诊日期', blank=True  )
+    community=models.ForeignKey(verbose_name='小区',to='Community',on_delete=models.CASCADE,related_name='about_patient')
+    definite_date= models.DateField('确诊日期', blank=True, null=True)
     add_date = models.DateTimeField('添加日期', auto_now_add=True, )
     edit_date = models.DateTimeField('修改日期', auto_now=True, )
+
+    class Meta:
+        ordering = ("-definite_date",)
 
     def __str__(self):
         return '病例'+str(self.id)
@@ -87,3 +90,9 @@ class Community(models.Model):
     lat=models.CharField('纬度',max_length=30)
     add_date = models.DateTimeField('添加日期', auto_now_add=True, )
     edit_date = models.DateTimeField('修改日期', auto_now=True, )
+
+    class Meta:
+        ordering = ("-add_date",)
+
+    def __str__(self):
+        return str(self.name)

@@ -1,12 +1,12 @@
 # Create your views here.
 
 from django.shortcuts import HttpResponse,render,get_object_or_404
-from .baidu_query import get_location
+from .op_api import *
 import json
 from .spyder import Spider
 from .models import Article,Patient,Community
 from  .form import ArticleForm
-from .extract import extract_data,d_c_get,p_definite_date
+from .extract import extract_data,p_definite_date
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from pyecharts import options as opts
 from pyecharts.charts import Bar,Line
@@ -110,7 +110,7 @@ def others(request):
 
 def article_detial(request,article_id):
     '''
-
+    文章详情
     :param request:
     :param article_id:
     :return:
@@ -120,110 +120,19 @@ def article_detial(request,article_id):
     return render(request,'./detial.html',{"article":article})
 
 
-def bath_add(infor_list_t_l_d):
-    '''
-    批量添加 文章
-    :param infor_list_t_l_d:
-    :return:
-    '''
-    spr = Spider()
-    for infor in  infor_list_t_l_d:
-        try:
-            new_article_detial=spr.soup_detial_page(infor[1])
-        except Exception as e:
-            print(e)
-            print(infor)
-            continue
-        new_article_form=ArticleForm(
-            data={'title':infor[0],'url':infor[1],'pub_date':infor[2],
-                  'type':spr.get_type(infor[0]),
-                  'source':new_article_detial[0],
-                  'content':new_article_detial[1]}
-        )
-        if new_article_form.is_valid():
-            cd =new_article_form.cleaned_data
-            try:
-                new_article = new_article_form.save()
-                print(new_article,'#',new_article.id,'#',new_article.type)
-                if new_article.type=='new_p':
-                    patient_add(new_article)
-
-
-
-            except Exception as e:
-                print(e)
-                continue
-        else:
-            print(new_article_form.errors)
-            continue
-
-def first_add(request):
-    '''
-
-    :param request:
-    :return:
-    '''
-    spr=Spider()
-    infor_list_t_l_d=spr.more_list_page_data(4)
-    #print(infor_list_t_l_d)
-
-    bath_add(infor_list_t_l_d)
-    return HttpResponse('finish')
-
-
-def get_new(request):
-    spr=Spider()
-    page_1_list=spr.soup_list_page(1)
-
-    new_article_list=[]
-    for infor in page_1_list:
-        a=Article.objects.filter(url=infor[1])
-        if a.exists():
-            print(infor[0],'not a new article')
-            continue
-        else:
-            print(infor[0],'!!!!!!!',infor[0],'is a new article !!!!!!')
-            new_article_list.append(infor)
-
-    bath_add(new_article_list)
-    return HttpResponse('finish')
-
-
-
-def patient_add(a_artical):
-    content=a_artical.content
-    definte_date=p_definite_date(content)
-
-    patient_address_list=extract_data(a_artical.content)
-    if a_artical.about_patient.all().count()==0:
-        for address in patient_address_list:
-            dis,com=d_c_get(address)
-            new_patinet=Patient(address_now=address,
-                                article_related_id=a_artical.id,
-                                district=dis,
-                                community=com,
-                                definite_date=definte_date)
-            new_patinet.save()
-
-            print('New patient added !!!!!',new_patinet,address)
-
-
-    elif len(patient_address_list) == a_artical.about_patient.all().count():
-        print('The patinets of this Article was added')
-
-
-
 def time_range_choice(timerange='y'):
+    '''
+    获取时间范围
+    :param timerange:
+    :return:
+    '''
+
     now_time = datetime.datetime.now()
     day_num = now_time.isoweekday()
     monday =(now_time-datetime.timedelta(days=day_num))
     if timerange == 'w':
         p_datas = Patient.objects.filter(definite_date__range=(monday, now_time))
         print('#',now_time,monday)
-
-        print(p_datas)
-
-
     elif timerange == 'm':
         p_datas=Patient.objects.filter(definite_date__month=now_time.month)
     else:
@@ -242,55 +151,39 @@ def get_dis_bar(range='y'):
         return elem[1]
 
     dis_list.sort(key=takeSecond)
-    # print(district_set)
-    # print(district_count_set)
-    # print(dis_list)
+    # 按照数量多少排序
     return dis_list
 
 
 def get_d_c_bar(range):
-    dis_list=get_dis_bar(range)
-    dis_list=[x[0] for x in dis_list]
+    dis_list=get_dis_bar(range)#获取区 病例数量列表
+    dis_list=[x[0] for x in dis_list] #获取区名称列表 按数量由少到多排序
     community_d_list=get_com_bar(range)
     community_d_list2=[[x[0],dis_list.index(x[1]),x[2] ]for x in community_d_list]
-
+    #print(community_d_list2)
     def getlist(a,b):
         list=[0]*len(dis_list)
         list[a]=b
         return list
 
-    community_d_list3=[[x[0],getlist(x[1],x[2])]  for x in community_d_list2]
+    community_d_list3=[[x[0],getlist(x[1],x[2])]for x in community_d_list2]
 
     return community_d_list3
 
-
-
-
-
-
-
-
 def get_com_bar(range='y'):
-    p_datas=time_range_choice(range)
-    community_set = p_datas.values('community','district')
+    #get a list of community and its count
+    p_datas=time_range_choice(range)    #获取时间范围
+    community_set = p_datas.values('community','district') #
     community_count_set = community_set.annotate(number=Count('community'))
-    community_d_list = [(x['community'],x['district'], x['number']) for x in community_count_set]
+    print (community_count_set)
+    com_list = [(x['community'], x['district'], x['number']) for x in community_count_set]
+    #com_name=Community.objects.get(id=270).name
+    def get_name(id):
+        return Community.objects.get(id=id).name
+    com_list2=[(get_name(x[0]),x[1],x[2]) for x in  com_list]
 
-
-    #print(community_d_list)
-    return community_d_list
-
-
-# def get_day_line(range):
-#     p_datas=time_range_choice(range)
-#     definite_day_set=p_datas.values('definite_date')
-#     definite_day_count_set=definite_day_set.annotate(number=Count('definite_date'))
-#     definite_list=[(x['definite_date'], x['number']) for x in definite_day_count_set]
-#
-#     def takeFirst(elem):
-#         return elem[0]
-#     return  definite_list
-
+    #print(com_name)
+    return com_list2
 
 def chart_test(request,range='y'):
     ##### 关于柱状图
@@ -313,6 +206,7 @@ def chart_test(request,range='y'):
 
     )
     for x in data_dc:
+
         d.add_yaxis(x[0],x[1],stack="stack")
     d.set_series_opts(label_opts=opts.LabelOpts(is_show=False))
     d.set_global_opts(
@@ -321,8 +215,6 @@ def chart_test(request,range='y'):
         legend_opts=opts.LegendOpts(type_='scroll',pos_left='10%',pos_right='20%',pos_top='10%')
 
     )
-
-
     data_bar=d.dump_options()
     #c.render()
     #print(chart)
@@ -345,9 +237,10 @@ def chart_test(request,range='y'):
     #print (c_d_list)
     points_list = []
     for x in c_d_list:
-        point_dict={'name':x[0],'di':x[1],'number':x[2]}
-        point_location_dict=get_lng_lat(x)
-        #print(point_dict,point_location_dict)
+        point_dict={'name':x[0],'number':x[2],'di':x[1]}
+        point_location_dict=get_lng_lat(x[0])
+
+        print(point_dict,point_location_dict)
         point_dict.update(point_location_dict)
         #print(point_dict)
         points_list.append(point_dict)
@@ -408,26 +301,9 @@ def chart_test(request,range='y'):
 
 
 
-    return render(request,'./chart.html',{'data_bar':data_bar,'data_line':data_line,'title':title,"points":points})
+    return render(request,'./chart.html',{'data_bar':data_bar,'data_line':data_line,'title':title,'points':points})
 
-def get_lng_lat(location_list):
-    location_name,location_district,patient_number=location_list
-    if Community.objects.filter(name=location_name).exists():
-        location=Community.objects.filter(name=location_name)[0]
-        result_dict={"lng":location.lng,"lat":location.lat}
-    else:
-        point_location_dict = get_location(location_name)
-        new_location=Community(
-            name=location_name,
-            district=location_district,
-            patient_number=patient_number,
-            lng=point_location_dict['lng'],
-            lat=point_location_dict['lat']
 
-        )
-        new_location.save()
-        result_dict=point_location_dict
-    return result_dict
 
 
 

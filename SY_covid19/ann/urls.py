@@ -18,6 +18,7 @@ urlpatterns = [
     path('detial_page/<int:article_id>',views.article_detial,name='article_detial'),
     path('first_add',views.first_add,name='first_add'),
     path('get_new', views.get_new, name='first_add'),
+    path('batch_add_patient', views.batch_add_patient, name='batch_add_patient'),
     path('chart_test/<str:range>',views.chart_test,name='chart_test'),
     #path('chart_test2',views.chart_test2,name='chart_test2')
 ]
