@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{%block main%}
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak=I1vUfuxw5861emgW8TBkuzitM28bdZuP">
+</script>
+
+<script src="/static/js/echarts.min.js"></script>
+<h3>{{title}}</h3>
+<hr>
+
+
+<div class="row">
+    <div class="col col-lg-12"><h5>检测点分布</h5></div>
+    <div id="container" class="col col-lg-12" style="height:500px"></div>
+    <script type="text/javascript">
+		var map =  new BMapGL.Map("container"); //初始化地图
+
+
+        //var points = [
+		//{"lng":116,"lat":40,"url":"http://www.baidu.com","id":50,"name":"p1"},
+		//{"lng":117,"lat":31,"url":"http://www.taobao.com","id":2,"name":"p2"},
+		//{"lng":116,"lat":34,"url":"http://www.qq.com","id":3,"name":"p3"}
+		//];//数据准备
+
+		var points = {{points|safe}};//数据准备
+
+		map.centerAndZoom(new BMapGL.Point(123.492272,41.805323), 14);//设置中心点和显示级别。中国。
+
+		map.enableScrollWheelZoom();//滚轮放大缩小。
+        map.disablePinchToZoom(false); // 手机端手势缩放
+
+		addMarker(points);//添加标注。
+
+		var scaleCtrl = new BMapGL.ScaleControl();  // 添加比例尺控件
+        map.addControl(scaleCtrl);
+        var zoomCtrl = new BMapGL.ZoomControl();  // 添加缩放控件
+        map.addControl(zoomCtrl);
+
+
+		function addMarker(points){  // 创建图标对象
+			var point,marker;
+			// 创建标注对象并添加到地图
+			for(var i = 0,pointsLen = points.length;i <pointsLen;i++){
+				point = new BMapGL.Point(points[i].lng,points[i].lat);
+				marker = new BMapGL.Marker(point);
+				map.addOverlay(marker);
+				//给标注点添加点击事件。使用立即执行函数和闭包
+				(function() {
+					var thePoint = points[i];
+					marker.addEventListener('click',function(){
+						showInfo(this,thePoint);
+					});
+				})();
+			}
+		}
+
+		//显示信息窗口，显示标注点的信息。
+		function showInfo(thisMaker,point){
+			var sContent =
+			'<ul class="info_ul">'
+			+'<li class="info_li">'
+			+'<span class="info_span">病例数量：</span>' + point.number + '</li>'
+			+'<li class="info_li">'
+			+'<span class="info_span">地点：</span>' + point.name + '</li>'
+			+'<li class="info_li">'
+			+'<span class="info_span">区：</span>' + point.di + '</li>';
+
+			var infoWindow = new BMapGL.InfoWindow(sContent);// 创建信息窗口对象
+		   	thisMaker.openInfoWindow(infoWindow);//图片加载完毕重绘infowindow
+		   }
+   </script>
+</div>
+
+
+<div><br></div>
+
+{%endblock%}

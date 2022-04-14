@@ -12,7 +12,6 @@ from pprint import pprint
 
 
 
-
 def get_location_json_by_address(address_now='沈阳市大东区龙之梦畅园'):
     ak='I1vUfuxw5861emgW8TBkuzitM28bdZuP'
     url='https://api.map.baidu.com/place/v2/search?query={}' \
