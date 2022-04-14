@@ -14,22 +14,19 @@
 <h3>{{title}}</h3>
 <hr>
 <div class="row">
-    <div id="main" class="col col-lg-6 " style="height:500px"></div>
+    <div id="main" class="col col-lg-12 " style="height:500px"></div>
     <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'),'light');
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption({{ data_bar | safe }});
 
-
-
-
-
-
     </script>
+</div>
 
-
-    <div id="container" class="col col-lg-6" style="height:500px"></div>
+<div class="row">
+    <div class="col col-lg-12"><h5>确诊病例分布</h5></div>
+    <div id="container" class="col col-lg-12" style="height:500px"></div>
     <script type="text/javascript">
 		var map =  new BMapGL.Map("container"); //初始化地图
 
@@ -86,12 +83,9 @@
 			var infoWindow = new BMapGL.InfoWindow(sContent);// 创建信息窗口对象
 		   	thisMaker.openInfoWindow(infoWindow);//图片加载完毕重绘infowindow
 		   }
-
-
-
-
-    </script>
-
+   </script>
+</div>
+<div class="row">
     <div id="main2" class="col col-lg-12" style="height:500px"></div>
     <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
@@ -105,9 +99,8 @@
 
 
     </script>
-
-
 </div>
+
 
 
 <div><br></div>

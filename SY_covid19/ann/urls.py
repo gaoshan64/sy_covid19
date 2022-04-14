@@ -11,7 +11,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.hello_world,name='index'),
+    path('',views.chart_test,name='chart_test'),
     path('notice',views.notice,name='notice'),
     path('new_patient',views.new_patient,name='new_patient'),
     path('others',views.others,name='others'),
